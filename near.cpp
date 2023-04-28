@@ -279,6 +279,28 @@ void search_tree()
 	upsearch(cur_node);
 }
 
+int myatoi(const char *nptr)	// string to int
+{
+	int result = 0;
+	const char *p = nptr;
+	while (*nptr!='\0')
+	{
+		if (*nptr>='0'&&*nptr<='9')
+		{
+			result *= 10;
+			result+=*nptr - 48;
+			
+			nptr++;
+ 
+		}
+		else
+		{
+			break;
+		}
+	}
+	return 0;
+}
+
 int main(int argc, char* argv[])
 {
 	double latq, lngq; // latitude_query, longitude_query
@@ -377,11 +399,11 @@ int main(int argc, char* argv[])
 		K = Ko;
 	//latq = 40; lngq = -70;
 	*/ 
-	if (argc == 4 && atoi(argv[3]) >= 1 && atoi(argv[3]) <= 10)
+	if (argc == 4 && myatoi(argv[3]) >= 1 && myatoi(argv[3]) <= 10)
 	{
-		latq = atoi(argv[1]);
-		lngq = atoi(argv[2]);
-		Ko = atoi(argv[3]);
+		latq = myatoi(argv[1]);
+		lngq = myatoi(argv[2]);
+		Ko = myatoi(argv[3]);
 	}
 	else
 	{
@@ -422,7 +444,7 @@ int main(int argc, char* argv[])
 				sort_ind[i] = sort_ind[j];
 				sort_ind[j] = tmpi; 
 			}
-	for(i=0; i<sort_index; i++)
+	for(i=0; i<Ko; i++)
 	{
 		//s = node_ind[i];
 		//printf("name: %s, state id: %s, latitude: %f, longitude: %f, distance: %f km\n", c[s].name, c[s].state_id, c[s].lat/pi*180, c[s].lng, c[s].dis*6371);
