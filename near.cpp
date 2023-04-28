@@ -39,8 +39,23 @@ double distance(int ind) // compute the distance between query and index city
 	d = sqrt(x*x+y*y);
 	c[ind].dis = d;
 	return d;
+} // former distance formula
+/*
+double distance(int ind)
+{
+	double x1, x2, y1, y2, result,dx,dy;
+	x1 = q.lng *pi/180;
+	x2 = c[ind].lng *pi/180;
+	dx = (x1-x2)/2;
+	y1 = q.lat;
+	y2 = c[ind].lat;
+	dy = (y1-y2)/2;
+	//result = 2*asin(sqrt(sin(dy)*sin(dy)+(1-sin(dy)*sin(dy)-sin(dy+y2)*sin(dy+y2))*sin(dx)*sin(dx)));
+	result = acos(sin(y1)*sin(y2)+cos(y1)*cos(y2)*cos(x1-x2));
+	printf("%f\n",&result);
+	return result;
 }
-
+*/
 /*
 void swap(struct city a, struct city b)
 {
@@ -278,33 +293,6 @@ void search_tree()
 	int cur_node;
 	cur_node = downsearch(root_index);
 	upsearch(cur_node);
-}
-
-int myatoi(const char *nptr)	// string to int
-{
-	int result = 0;
-	int mark = 1;
-	const char *p = nptr;
-	while (*nptr!='\0')
-	{
-		if (*nptr>='0'&&*nptr<='9')
-		{
-			result *= 10;
-			result+=*nptr - 48;
-			
-			nptr++;
- 
-		}
-		else
-		{
-			if (nptr == p && *nptr == '-')
-				mark = 0;
-			break;
-		}
-	}
-	if(mark == 0)
-		result = -result;
-	return result;
 }
 
 int main(int argc, char* argv[])
