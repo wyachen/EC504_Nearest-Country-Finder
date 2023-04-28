@@ -2,6 +2,7 @@
 #include <fstream>
 #include <cmath>
 #include <cstring>
+#include <stdlib.h>
 using namespace std;
 
 #define CITY_NUM 30844
@@ -462,6 +463,7 @@ int main(int argc, char* argv[])
 	int knncount[5] = {0};
 	int flag = 1;
 	int state_ind = 0;
+	int big_ind = 0;
 	for(i=0;i<5;i++)
 	{
 		flag = 1;
@@ -474,10 +476,21 @@ int main(int argc, char* argv[])
 			}
 		if(flag)
 		{
-			state[j] = c[sort_ind[i]].state_id[0];
-			state[j+1] = c[sort_ind[i]].state_id[1];
+			state[2*state_ind] = c[sort_ind[i]].state_id[0];
+			state[2*state_ind+1] = c[sort_ind[i]].state_id[1];
+			knncount[state_ind] = 1;
+			state_ind++;
 		}
 	}
+	for(i=0;i<5;i++)
+		if(knncount[i]>knncount[big_ind])
+			big_ind = i;
+	printf("The location may be in %c%c\n",state[big_ind*2],state[big_ind*2+1]);
+	/*test
+	for(i=0;i<5;i++)
+		if(state[2*i]!='\0')
+			printf("%c%c %d\n",state[i*2],state[i*2+1],knncount[i]); 
+			*/
 			
 	
 	/*
