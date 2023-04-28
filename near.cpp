@@ -282,6 +282,7 @@ void search_tree()
 int myatoi(const char *nptr)	// string to int
 {
 	int result = 0;
+	int mark = 1;
 	const char *p = nptr;
 	while (*nptr!='\0')
 	{
@@ -295,10 +296,14 @@ int myatoi(const char *nptr)	// string to int
 		}
 		else
 		{
+			if (nptr == p && *nptr == '-')
+				mark = 0;
 			break;
 		}
 	}
-	return 0;
+	if(mark == 0)
+		result = -result;
+	return result;
 }
 
 int main(int argc, char* argv[])
@@ -407,6 +412,7 @@ int main(int argc, char* argv[])
 	}
 	else
 	{
+		printf("%d",myatoi(argv[3]));
 		printf("Please input latitude, longitude, K in order, 1 <= K <= 10.\nUsing command ./near [lat] [lng] [K]");
 		return 0; 
 	}
@@ -451,6 +457,28 @@ int main(int argc, char* argv[])
 		s = sort_ind[i];
 		printf("name: %s, state id: %s, latitude: %f, longitude: %f, distance: %f km\n", c[s].name, c[s].state_id, c[s].lat/pi*180, c[s].lng, c[s].dis*6371);
 	}
+	
+	char state[10] = {""};
+	int knncount[5] = {0};
+	int flag = 1;
+	int state_ind = 0;
+	for(i=0;i<5;i++)
+	{
+		flag = 1;
+		for(j=0;j<10;j=j+2)
+			if(state[j] == c[sort_ind[i]].state_id[0] && state[j+1] == c[sort_ind[i]].state_id[1])
+			{
+				knncount[j/2]++;
+				flag = 0;
+				break;
+			}
+		if(flag)
+		{
+			state[j] = c[sort_ind[i]].state_id[0];
+			state[j+1] = c[sort_ind[i]].state_id[1];
+		}
+	}
+			
 	
 	/*
 	double shortest = 99;
