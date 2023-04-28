@@ -404,15 +404,15 @@ int main(int argc, char* argv[])
 		K = Ko;
 	//latq = 40; lngq = -70;
 	*/ 
-	if (argc == 4 && myatoi(argv[3]) >= 1 && myatoi(argv[3]) <= 10)
+	if (argc == 4 && atof(argv[3]) >= 1 && atof(argv[3]) <= 10)
 	{
-		latq = myatoi(argv[1]);
-		lngq = myatoi(argv[2]);
-		Ko = myatoi(argv[3]);
+		latq = atof(argv[1]);
+		lngq = atof(argv[2]);
+		Ko = atof(argv[3]);
 	}
 	else
 	{
-		printf("%d",myatoi(argv[3]));
+		//printf("%d",myatoi(argv[3]));
 		printf("Please input latitude, longitude, K in order, 1 <= K <= 10.\nUsing command ./near [lat] [lng] [K]");
 		return 0; 
 	}
